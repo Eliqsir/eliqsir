@@ -12,12 +12,6 @@ include_recipe "nginx::source"
 node.default["nodejs"]["version"] ='0.10.10' 
 include_recipe "nodejs::install_from_source"
 
-include_recipe "forever"
-forever_service 'testserver' do
-    path "/srv/www/eliqsir/src/server"
-    script "testserver.js"
-    action [:enable,:start]
-end
 
 directory "/srv/www" do
     recursive true
@@ -32,6 +26,13 @@ if node.eliqsir.dev == false
         reference "master"
         action :sync
     end
+end
+
+include_recipe "forever"
+forever_service 'testserver' do
+    path "/srv/www/eliqsir/src/server"
+    script "testserver.js"
+    action [:enable,:start]
 end
 
 template "/etc/nginx/sites-available/eliqsir" do
