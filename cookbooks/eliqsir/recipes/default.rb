@@ -9,6 +9,16 @@
 node.default["nginx"]["default_site_enabled"] = false
 include_recipe "nginx::source"
 
+node.default["nodejs"]["version"] ='0.10.10' 
+include_recipe "nodejs::install_from_source"
+
+include_recipe "forever"
+forever_service 'testserver' do
+    path "/srv/www/eliqsir/src/server"
+    script "testserver.js"
+    action [:enable,:start]
+end
+
 directory "/srv/www" do
     recursive true
 end

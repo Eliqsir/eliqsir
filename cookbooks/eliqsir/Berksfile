@@ -1,3 +1,5 @@
 site :opscode
 
 metadata
+
+cookbook 'forever', git: 'git://github.com/trabian/chef-forever.git'
