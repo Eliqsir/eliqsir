@@ -1,0 +1,15 @@
+
+
+server {
+      listen   80;
+      sendfile off;
+        server_name  eliqsir.grummle.com;
+
+          access_log  /var/log/nginx/localhost.access.log;
+
+            location / {
+                    root   /srv/www/eliqsir/src/static;
+                        index  index.html index.htm;
+                          }
+}
+
