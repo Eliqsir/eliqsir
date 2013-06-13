@@ -8,6 +8,8 @@ lib-cov
 *.gz
 .vagrant
 *.swp
+node_modules/
+.idea/
 
 pids
 logs
