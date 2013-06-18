@@ -1,9 +1,72 @@
-<div class="hero-unit">
-  <h1>'Allo, 'Allo!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
+<div class="navbar navbar-static-top">
+    <div class="container" style="width: auto; padding: 0 20px;">
+        <a class="brand" href="#">Logo</a>
+        <ul class="nav">
+            <li><input type="text"/></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Sign In/Register</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="span12 well">
+        Featured/Most Popular
+        <hr>
+        <div  class="row">
+            <div ng-repeat="juice in juices |limitTo:4" class="span3">
+                <div>
+                    <img ng-src="{{juice.imageUrl}}" width="200" height="323">
+                </div>
+                <div>
+                    <p>{{juice.name}}</p>
+                    <small>{{juice.maker}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12 well">
+        <div class="row">
+            <div class="span12">
+                Browse All
+                <select class="pull-right" type></select>
+            </div>
+        </div>
+
+        <hr>
+        <div class="row">
+            <div class="span8">
+                <div class="row-fluid" ng-repeat="juice in juices | limitTo:5">
+                    <div class="span4">
+                        <img ng-src="{{juice.imageUrl}}" width="100" height="161">
+                    </div>
+                    <div class="span8">
+                        <p>{{juice.name}}</p>
+                        <small>by {{juice.maker}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="row-fluid">
+                    <div class="span12">
+
+                        <p>Most Popular Vendors</p>
+                        <ol>
+                            <li ng-repeat="vendor in vendors | limitTo:10">{{vendor}}</li>
+                        </ol>
+                    </div>
+                    <div class="span12">
+                        <p>Most Popular Categories</p>
+                        <ol>
+                            <li ng-repeat="cat in categories">{{cat}}</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
