@@ -1,4 +1,5 @@
 var utils = require('./utils');
+var fs = require('fs');
 var $ = require('jquery');
 var q = require('q');
 var _ = require('underscore');
@@ -54,7 +55,10 @@ control = function(juices){
 utils.getPage(urlTemplate+currentPage)
     .then(getJuices).then(control)
     .then(function(){
-        q.all(descriptionPromises).then(function(){console.log(_(juiceStore).pluck('description'))})
+        q.all(descriptionPromises).then(function(){
+            console.log('found '+juiceStore.length+ ' juices')
+            fs.writeFile('juice_dumps/mbv.json',JSON.stringify(juiceStore));
+        })
     })
 
 
