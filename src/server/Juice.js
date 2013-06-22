@@ -1,8 +1,9 @@
 var extend = require('extend');
 var q = require('q');
 var levelup = require('levelup');
+var config = require('./config.json');
 
-var db = levelup('./data/Juices',{valueEncoding:'json'});
+var db = levelup(config.data+'Juices',{valueEncoding:'json'});
 
 var Juice = function(data){
         extend(this,data); 

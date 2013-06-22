@@ -28,10 +28,15 @@ if node.eliqsir.dev == false
     end
 end
 
+npm_package do
+  path "/srv/www/eliqsir/src/server/"
+  action :install_from_json
+end
+
 include_recipe "forever"
-forever_service 'testserver' do
+forever_service 'api' do
     path "/srv/www/eliqsir/src/server"
-    script "testserver.js"
+    script "server.js"
     action [:enable,:start]
 end
 
