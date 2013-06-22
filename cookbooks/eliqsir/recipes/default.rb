@@ -28,10 +28,18 @@ if node.eliqsir.dev == false
     end
 end
 
-npm_package do
-  path "/srv/www/eliqsir/src/server/"
-  action :install_from_json
+directory "/srv/www/eliqsir/src/server/data" do
+    recursive true
 end
+
+execute "cd /srv/www/eliqsir/src/server/ && npm install"
+execute "cd /srv/www/eliqsir/src/static/ && npm install"
+
+npm_package "bower" do
+    action :install
+end
+
+execute "cd /srv/www/eliqsir/src/static/ && bower install"
 
 include_recipe "forever"
 forever_service 'api' do
