@@ -13,7 +13,7 @@ node.default["nodejs"]["version"] ='0.10.10'
 include_recipe "nodejs::install_from_source"
 
 
-directory "/srv/www" do
+directory "/data/" do
     recursive true
 end
 
@@ -46,6 +46,7 @@ forever_service 'api' do
     path "/srv/www/eliqsir/src/server"
     script "server.js"
     action [:enable,:start]
+    user "root"
 end
 
 template "/etc/nginx/sites-available/eliqsir" do
