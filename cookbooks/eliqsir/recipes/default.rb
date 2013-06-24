@@ -17,6 +17,11 @@ directory "/data/" do
     recursive true
 end
 
+directory "/srv/www/" do
+    recursive true
+end
+
+
 
 if node.eliqsir.dev == false
     include_recipe "git::default"

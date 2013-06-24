@@ -1,5 +1,6 @@
 'use strict';
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
@@ -7,6 +8,7 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  grunt.loadNpmTasks('grunt-connect-proxy');
 
   // configurable paths
   var yeomanConfig = {
@@ -49,6 +51,7 @@ module.exports = function (grunt) {
         options: {
           middleware: function (connect) {
             return [
+              proxySnippet,
               lrSnippet,
               mountFolder(connect, '.tmp'),
               mountFolder(connect, yeomanConfig.app)
@@ -65,7 +68,14 @@ module.exports = function (grunt) {
             ];
           }
         }
-      }
+      },
+      proxies:[{
+        context:'/api',
+          host:'localhost',
+          port:8000,
+          https:false,
+          changeOrigin:false
+      }]
     },
     open: {
       server: {
@@ -244,6 +254,7 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'clean:server',
     'coffee:dist',
+    'configureProxies',
     'livereload-start',
     'connect:livereload',
     'open',
