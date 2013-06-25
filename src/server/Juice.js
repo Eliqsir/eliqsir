@@ -18,6 +18,7 @@ Juice.get = function(key){
 
 Juice.put = function(key,value){
         var deferred = q.defer();
+        value.key = key;
         db.put(key, value, function (err) {
             deferred.resolve(new Juice(value));
         });
