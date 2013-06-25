@@ -7,6 +7,7 @@ var _ = require('underscore');
 var server = restify.createServer();
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
+server.pre(restify.pre.sanitizePath());
 
 function send(req, res, next) {
     res.send('hello ' + req.params.name);
