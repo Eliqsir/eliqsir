@@ -25,6 +25,10 @@ Juice.put = function(key,value){
         return deferred.promise;
     };
 
+Juice.del= function(key){
+    db.del(key);
+};
+
 Juice.stream = function(options){
     return db.createReadStream(options);
 };

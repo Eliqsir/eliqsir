@@ -1,10 +1,12 @@
 var restify = require('restify');
+var extend = require('extend');
 var Juice = require('./Juice');
 var concat = require('concat-stream');
 var _ = require('underscore');
 
 var server = restify.createServer();
 server.use(restify.queryParser());
+server.use(restify.bodyParser());
 
 function send(req, res, next) {
     res.send('hello ' + req.params.name);
@@ -38,6 +40,28 @@ server.get('/api/juice/', function(req,res,next){
     return next();
 });
 
+server.post('/api/juice/',function(req,res,next){
+    Juice.put(req.body.makerSmall+'!'+req.body.name,req.body);
+    res.json(req.body);
+    return next();
+});
+
+server.put('/api/juice/:key',function(req,res,next){
+    var key = req.params.key.replace('.','!');
+    var combined;
+    Juice.get(key).then(function(juice){
+        combined = extend(juice,req.body);
+        Juice.put(key,combined);
+        res.json(combined);
+    });
+    return next();
+});
+
+server.del('/api/juice/:key',function(req,res,next){
+    Juice.del(req.params.key.replace('.','!'));
+    res.end();
+    return next();
+});
 
 
 server.listen(8000);
